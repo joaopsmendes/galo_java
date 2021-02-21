@@ -19,7 +19,9 @@ public class Tabuleiro {
             }
         }
     }
-
+    public void jogar (int casa){
+        
+    }
 
     public void printTabuleiro(){
         for(int i = 0; i < this.tamanho; i++){

@@ -1,9 +1,6 @@
-import java.util.Scanner;
-
-public class galo {
+public class Galo {
     public static void main(String args[]){
-    auxiliar jogo= new auxiliar ();
-
-    jogo.jogar ();
+        Tabuleiro tabuleiro = new Tabuleiro(3);
+        tabuleiro.printTabuleiro();
     }
 }

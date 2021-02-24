@@ -4,60 +4,81 @@ public class Tabuleiro {
 
     private final int tamanho;
     private ArrayList<Integer> tabuleiro;
+    private int jogador_atual;
+    private int n_jogadas;
 
     public Tabuleiro(int tamanho){
         this.tamanho = tamanho;
 
         initTabuleiro();
-        jogar();
-        win();
+        jogador_atual = 1;
+        n_jogadas = 0;
     }
 
     public void initTabuleiro(){
-        tabuleiro = new ArrayList<>();
+        this.tabuleiro = new ArrayList<>();
         for(int i=0; i < tamanho; i++){
             for(int j=0; j < tamanho; j++){
-                tabuleiro.add(0);
+                this.tabuleiro.add(1);
             }
         }
     }
-    public void jogar (int casa){
-        int jogador;
-        jogador=1;
-        if (jogador==1) jogador=2;
-        else jogador=1;
-        
+
+    /*
+    @param casa - indice do quadrado selecionado
+    -1 - Jogado invalida
+    0 - Continua o jogo
+    1/2 - Caso haja vencedor
+    3 - Caso haja empate
+     */
+    public int jogar(int casa){
+        // verificar se a jogada é valida
+        if(this.tabuleiro.get(casa) != 0){
+            System.out.println("Jogada inválida.");
+            return -1;
+        }
+
+        // efetuar jogada (mudar o tabuleiro)
+        this.tabuleiro.set(casa, jogador_atual);
+
+        // Detetar se o jogador venceu
+        int vencedor = win();
+        if(vencedor != 0){
+            System.out.println("O jogador " + vencedor + " ganhou o jogo");
+            return vencedor;
+        }
+
+        // mudança jogador
+        if(jogador_atual == 1) jogador_atual = 2;
+        else jogador_atual = 1;
+
+        // verificar se é empate
+        if(tamanho*tamanho == n_jogadas) return 3;
+
+        this.n_jogadas++;
+        return 0;
     }
 
     public void printTabuleiro(){
+        // TODO linhas do tabuleiro
         for(int i = 0; i < this.tamanho; i++){
             for(int j = 0; j < this.tamanho; j++){
                 int casa = this.tabuleiro.get(i*this.tamanho+j);
-                if(casa == 1) System.out.println("  X  ");   //trocar o jogador
-                else if(casa == 2) System.out.println("  O  ");
-                else System.out.println("     ");
+                if(casa == 1) System.out.print("  X  ");   //trocar o jogador
+                else if(casa == 2) System.out.print("  O  ");
+                else System.out.print("     ");
             }
-            System.out.println("\n");
-        }
-    }
-    //para vencer quando a soma das posiçoes seguidas  é o tamanho no caso do X é 3(1*tamanho)
-    //para vencer quando a somma das posiçoes seguidas é o tamanho no caso de O é 6(2*tamanho)
-    public void win(){
-        int sum;
-        int sum1;
-        sum=0;
-        sum1=0;
-        for(int i = 0; i < this.tamanho; i++) {
-            for (int j = 0; j < this.tamanho; j++) {
-                sum=sum+tabuleiro[i][j];//somar linhas
-                sum1=sum1+tabuleiro[j][i];//somar colunas
-                if(sum==1 * this.tamanho || sum1==1*this.tamanho) System.out.println("win ");
-                else if (sum==2 * this.tamanho || sum1==2*this.tamanho) System.out.println("win ");
-            }
+            System.out.print("\n");
         }
     }
 
-    public ArrayList<Integer> getTabuleiro() {
-        return tabuleiro;
+    /*
+    0 - nng ganhou
+    1 - jogador 1 ganhou
+    2 - jogador 2 ganhou
+     */
+    public int win(){
+        // TODO detetar vitoria
+        return 0;
     }
 }

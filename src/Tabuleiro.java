@@ -82,6 +82,14 @@ public class Tabuleiro {
      */
     public int win(){
         // TODO detetar vitoria
+        if(this.tabuleiro.get(0)==this.tabuleiro.get(1) && this.tabuleiro.get(1)==this.tabuleiro.get(2))return this.tabuleiro.get(0);
+        else if(this.tabuleiro.get(3)==this.tabuleiro.get(4) && this.tabuleiro.get(4)==this.tabuleiro.get(5)) return this.tabuleiro.get(3);
+        else if(this.tabuleiro.get(6)==this.tabuleiro.get(7) && this.tabuleiro.get(7)==this.tabuleiro.get(8)) return this.tabuleiro.get(6);
+        else if(this.tabuleiro.get(0)==this.tabuleiro.get(3) && this.tabuleiro.get(3)==this.tabuleiro.get(6)) return this.tabuleiro.get(0);
+        else if(this.tabuleiro.get(1)==this.tabuleiro.get(4) && this.tabuleiro.get(4)==this.tabuleiro.get(7)) return this.tabuleiro.get(1);
+        else if(this.tabuleiro.get(2)==this.tabuleiro.get(5) && this.tabuleiro.get(5)==this.tabuleiro.get(8)) return this.tabuleiro.get(2);
+        else if(this.tabuleiro.get(0)==this.tabuleiro.get(4) && this.tabuleiro.get(4)==this.tabuleiro.get(8)) return this.tabuleiro.get(0);
+        else if(this.tabuleiro.get(2)==this.tabuleiro.get(4) && this.tabuleiro.get(4)==this.tabuleiro.get(6)) return this.tabuleiro.get(2);
         return 0;
     }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Tabuleiro {
 
@@ -10,8 +11,10 @@ public class Tabuleiro {
     public Tabuleiro(int tamanho){
         this.tamanho = tamanho;
 
+        Random random = new Random();
+
         initTabuleiro();
-        jogador_atual = 1;
+        jogador_atual = random.nextBoolean() ? 1 : 2;
         n_jogadas = 0;
     }
 

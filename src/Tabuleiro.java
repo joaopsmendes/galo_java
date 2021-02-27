@@ -7,9 +7,11 @@ public class Tabuleiro {
     private ArrayList<Integer> tabuleiro;
     private int jogador_atual;
     private int n_jogadas;
+    private boolean gameFinished;
 
     public Tabuleiro(int tamanho){
         this.tamanho = tamanho;
+        this.gameFinished = false;
 
         Random random = new Random();
 
@@ -22,7 +24,7 @@ public class Tabuleiro {
         this.tabuleiro = new ArrayList<>();
         for(int i=0; i < tamanho; i++){
             for(int j=0; j < tamanho; j++){
-                this.tabuleiro.add(1);
+                this.tabuleiro.add(0);
             }
         }
     }
@@ -47,7 +49,9 @@ public class Tabuleiro {
         // Detetar se o jogador venceu
         int vencedor = win();
         if(vencedor != 0){
+            printTabuleiro();
             System.out.println("O jogador " + vencedor + " ganhou o jogo");
+            this.gameFinished = true;
             return vencedor;
         }
 
@@ -55,23 +59,35 @@ public class Tabuleiro {
         if(jogador_atual == 1) jogador_atual = 2;
         else jogador_atual = 1;
 
-        // verificar se é empate
-        if(tamanho*tamanho == n_jogadas) return 3;
-
         this.n_jogadas++;
+
+        // verificar se é empate
+        if(tamanho*tamanho == n_jogadas){
+            System.out.println("Empate! BURROS");
+            this.gameFinished = true;
+            return 3;
+        }
+
         return 0;
     }
 
     public void printTabuleiro(){
-        // TODO linhas do tabuleiro
+        int linha = 0, coluna = 0;
         for(int i = 0; i < this.tamanho; i++){
             for(int j = 0; j < this.tamanho; j++){
                 int casa = this.tabuleiro.get(i*this.tamanho+j);
-                if(casa == 1) System.out.print("  X  ");   //trocar o jogador
-                else if(casa == 2) System.out.print("  O  ");
-                else System.out.print("     ");
+                if(casa == 1) System.out.print(coluna < (this.tamanho-1) ? "  X  |" : "  X  ");   //trocar o jogador
+                else if(casa == 2) System.out.print(coluna < (this.tamanho-1) ? "  O  |" : "  O  ");
+                else System.out.print(coluna < (this.tamanho-1) ? "     |" : "     ");
+                coluna++;
             }
-            System.out.print("\n");
+            coluna = 0;
+            if(linha < this.tamanho-1){
+                System.out.print("\n-----------------\n");
+            }else{
+                System.out.print("\n");
+            }
+            linha++;
         }
     }
 
@@ -81,8 +97,7 @@ public class Tabuleiro {
     2 - jogador 2 ganhou
      */
     public int win(){
-        // TODO detetar vitoria
-        if(this.tabuleiro.get(0)==this.tabuleiro.get(1) && this.tabuleiro.get(1)==this.tabuleiro.get(2))return this.tabuleiro.get(0);
+        if(this.tabuleiro.get(0)==this.tabuleiro.get(1) && this.tabuleiro.get(1)==this.tabuleiro.get(2)) return this.tabuleiro.get(0);
         else if(this.tabuleiro.get(3)==this.tabuleiro.get(4) && this.tabuleiro.get(4)==this.tabuleiro.get(5)) return this.tabuleiro.get(3);
         else if(this.tabuleiro.get(6)==this.tabuleiro.get(7) && this.tabuleiro.get(7)==this.tabuleiro.get(8)) return this.tabuleiro.get(6);
         else if(this.tabuleiro.get(0)==this.tabuleiro.get(3) && this.tabuleiro.get(3)==this.tabuleiro.get(6)) return this.tabuleiro.get(0);
@@ -91,5 +106,13 @@ public class Tabuleiro {
         else if(this.tabuleiro.get(0)==this.tabuleiro.get(4) && this.tabuleiro.get(4)==this.tabuleiro.get(8)) return this.tabuleiro.get(0);
         else if(this.tabuleiro.get(2)==this.tabuleiro.get(4) && this.tabuleiro.get(4)==this.tabuleiro.get(6)) return this.tabuleiro.get(2);
         return 0;
+    }
+
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
+    public int getTamanho() {
+        return tamanho;
     }
 }

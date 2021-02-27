@@ -6,9 +6,9 @@ public class Galo {
 
     public static void main(String args[]){
         Tabuleiro tabuleiro = new Tabuleiro(3);
+        Scanner scanner = new Scanner(System.in);
         while(!tabuleiro.isGameFinished()){
             tabuleiro.printTabuleiro();
-            Scanner scanner = new Scanner(System.in);
             String input;
             System.out.println("Joga!");
             input = scanner.nextLine();
@@ -25,5 +25,6 @@ public class Galo {
                 System.out.println("Posição invalida.");
             }
         }
+        scanner.close();
     }
 }

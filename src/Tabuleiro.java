@@ -70,20 +70,29 @@ public class Tabuleiro {
 
         return 0;
     }
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
 
     public void printTabuleiro(){
         int linha = 0, coluna = 0;
         for(int i = 0; i < this.tamanho; i++){
             for(int j = 0; j < this.tamanho; j++){
                 int casa = this.tabuleiro.get(i*this.tamanho+j);
-                if(casa == 1) System.out.print(coluna < (this.tamanho-1) ? "  X  |" : "  X  ");   //trocar o jogador
-                else if(casa == 2) System.out.print(coluna < (this.tamanho-1) ? "  O  |" : "  O  ");
-                else System.out.print(coluna < (this.tamanho-1) ? "     |" : "     ");
+                if(casa == 1) System.out.print(coluna < (this.tamanho-1) ? ANSI_RED+"  X  "+ANSI_RESET+ANSI_BLUE+"|"+ANSI_RESET : ANSI_RED+"  X  "+ANSI_RESET);   //trocar o jogador
+                else if(casa == 2) System.out.print(coluna < (this.tamanho-1) ? ANSI_GREEN+"  O  "+ANSI_RESET +ANSI_BLUE+"|" +ANSI_RESET: ANSI_GREEN+"  O  "+ANSI_RESET);
+                else System.out.print(coluna < (this.tamanho-1) ? "     "+ANSI_BLUE+"|"+ANSI_RESET : "     ");
                 coluna++;
             }
             coluna = 0;
             if(linha < this.tamanho-1){
-                System.out.print("\n-----------------\n");
+                System.out.print(ANSI_BLUE+"\n-----------------\n"+ANSI_RESET);
             }else{
                 System.out.print("\n");
             }
